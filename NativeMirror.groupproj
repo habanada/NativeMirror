@@ -1,0 +1,96 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4E4C8C6D-FBC7-4A22-A93A-3B253AE971FD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="tools\NativeMirrorScan\NativeMirrorScan.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\ScannerIntegration\NativeMirrorTestTarget.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\ScannerIntegration\NativeMirrorTestTarget32.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\ScannerIntegration\NativeMirrorScannerTests.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\HollowsHunterIntegration\NativeMirrorHollowsHunterTests.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tools\NativeMirrorDll\pe-sieve.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="NativeMirrorScan">
+        <MSBuild Projects="tools\NativeMirrorScan\NativeMirrorScan.dproj"/>
+    </Target>
+    <Target Name="NativeMirrorScan:Clean">
+        <MSBuild Projects="tools\NativeMirrorScan\NativeMirrorScan.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NativeMirrorScan:Make">
+        <MSBuild Projects="tools\NativeMirrorScan\NativeMirrorScan.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget.dproj"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget:Clean">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget:Make">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget32">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget32.dproj"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget32:Clean">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget32.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NativeMirrorTestTarget32:Make">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorTestTarget32.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NativeMirrorScannerTests">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorScannerTests.dproj"/>
+    </Target>
+    <Target Name="NativeMirrorScannerTests:Clean">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorScannerTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NativeMirrorScannerTests:Make">
+        <MSBuild Projects="tests\ScannerIntegration\NativeMirrorScannerTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NativeMirrorHollowsHunterTests">
+        <MSBuild Projects="tests\HollowsHunterIntegration\NativeMirrorHollowsHunterTests.dproj"/>
+    </Target>
+    <Target Name="NativeMirrorHollowsHunterTests:Clean">
+        <MSBuild Projects="tests\HollowsHunterIntegration\NativeMirrorHollowsHunterTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NativeMirrorHollowsHunterTests:Make">
+        <MSBuild Projects="tests\HollowsHunterIntegration\NativeMirrorHollowsHunterTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="pe-sieve">
+        <MSBuild Projects="tools\NativeMirrorDll\pe-sieve.dproj"/>
+    </Target>
+    <Target Name="pe-sieve:Clean">
+        <MSBuild Projects="tools\NativeMirrorDll\pe-sieve.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="pe-sieve:Make">
+        <MSBuild Projects="tools\NativeMirrorDll\pe-sieve.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="NativeMirrorScan;NativeMirrorTestTarget;NativeMirrorTestTarget32;NativeMirrorScannerTests;NativeMirrorHollowsHunterTests;pe-sieve"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="NativeMirrorScan:Clean;NativeMirrorTestTarget:Clean;NativeMirrorTestTarget32:Clean;NativeMirrorScannerTests:Clean;NativeMirrorHollowsHunterTests:Clean;pe-sieve:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="NativeMirrorScan:Make;NativeMirrorTestTarget:Make;NativeMirrorTestTarget32:Make;NativeMirrorScannerTests:Make;NativeMirrorHollowsHunterTests:Make;pe-sieve:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

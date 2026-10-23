@@ -1,0 +1,6 @@
+LIBRARY pe-sieve.dll
+EXPORTS
+    PESieve_help
+    PESieve_scan
+    PESieve_scan_ex
+    PESieve_version DATA

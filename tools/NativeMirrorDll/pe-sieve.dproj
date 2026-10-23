@@ -1,0 +1,224 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{E0A24E68-E450-4E88-9E13-D9CB3F520467}</ProjectGuid>
+        <MainSource>pe-sieve.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <ProjectName Condition="'$(ProjectName)'==''">pe-sieve</ProjectName>
+        <TargetedPlatforms>3</TargetedPlatforms>
+        <AppType>Library</AppType>
+        <GenDll>true</GenDll>
+        <FrameworkType>None</FrameworkType>
+        <ProjectVersion>20.2</ProjectVersion>
+        <NativeMirrorRoot Condition="'$(NativeMirrorRoot)'==''">$(MSBuildProjectDirectory)\..\..</NativeMirrorRoot>
+        <NativePeRoot Condition="'$(NativePeRoot)'==''">$(NativeMirrorRoot)\..\NativePe</NativePeRoot>
+        <NativePeUnitPath Condition="'$(NativePeUnitPath)'==''">$(NativePeRoot);$(NativePeRoot)\Source;$(NativePeRoot)\src</NativePeUnitPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <SanitizedProjectName>pe-sieve</SanitizedProjectName>
+        <DCC_UnitSearchPath>..\..\src;..\..\src\Api;..\..\src\Core;..\..\src\Scanner;..\..\src\Dumper;..\..\src\Dumper\Imports;..\..\src\Stats;..\..\src\Platform;..\..\src\Layer;..\..\src\Adapters;..\..\..\NativePe\src;..\..\..\NativePe;..\..\..\NativePe\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_IncludePath>$(MSBuildProjectDirectory);$(DCC_IncludePath)</DCC_IncludePath>
+        <DCC_ExeOutput>$(MSBuildProjectDirectory)\..\..\bin\$(Platform)\$(Config)</DCC_ExeOutput>
+        <PostBuildEvent><![CDATA[py "$(MSBuildProjectDirectory)\finalize_exports.py" "$(DCC_ExeOutput)\pe-sieve.dll"
+$(PostBuildEvent)]]></PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>false</PostBuildEventIgnoreExitCode>
+        <PostBuildEventExecuteWhen>Always</PostBuildEventExecuteWhen>
+        <DCC_DcuOutput>$(MSBuildProjectDirectory)\..\..\dcu\$(ProjectName)\$(Platform)\$(Config)</DCC_DcuOutput>
+        <GenDll>true</GenDll>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInformation>2</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <BT_BuildType>Debug</BT_BuildType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Locale>1031</VerInfo_Locale>
+        <Manifest_File>(Ohne)</Manifest_File>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>true</DCC_Optimize>
+        <DCC_GenerateStackFrames>false</DCC_GenerateStackFrames>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <BT_BuildType>Release</BT_BuildType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <BT_BuildType>Release</BT_BuildType>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="..\..\src\Api\NativeMirror.Api.PeSieve.pas"/>
+        <DCCReference Include="..\..\src\Adapters\NativeMirror.Adapters.Streams.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Buffer.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Engine.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Memory.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Options.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Paths.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.PeValidation.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Text.pas"/>
+        <DCCReference Include="..\..\src\Core\NativeMirror.Core.Types.pas"/>
+        <DCCReference Include="..\..\src\Dumper\Imports\NativeMirror.Dumper.Imports.Blocks.pas"/>
+        <DCCReference Include="..\..\src\Dumper\Imports\NativeMirror.Dumper.Imports.Finder.pas"/>
+        <DCCReference Include="..\..\src\Dumper\Imports\NativeMirror.Dumper.Imports.Reconstructor.pas"/>
+        <DCCReference Include="..\..\src\Dumper\NativeMirror.Dumper.Buffer.pas"/>
+        <DCCReference Include="..\..\src\Dumper\NativeMirror.Dumper.Engine.pas"/>
+        <DCCReference Include="..\..\src\Dumper\NativeMirror.Dumper.Reconstructor.pas"/>
+        <DCCReference Include="..\..\src\Dumper\NativeMirror.Dumper.Reports.pas"/>
+        <DCCReference Include="..\..\src\Layer\NativeMirror.Layer.Lde.pas"/>
+        <DCCReference Include="..\..\src\Layer\NativeMirror.Layer.NativeAsm.pas"/>
+        <DCCReference Include="..\..\src\Layer\NativeMirror.Layer.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Enumeration.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.MiniDump.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Paths.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Process.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Reflection.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Symbols.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Syscalls.pas"/>
+        <DCCReference Include="..\..\src\Platform\NativeMirror.Platform.Threads.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Artefacts.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Code.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Headers.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.HookTargets.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.IAT.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Mapping.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.MemPage.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.ModuleCache.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.ModuleData.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Modules.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.PatchAnalyzer.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Patches.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Patterns.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.PeSection.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.ProcessDetails.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.ProcessReport.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.ProcessScanner.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Reports.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Signatures.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.Threads.pas"/>
+        <DCCReference Include="..\..\src\Scanner\NativeMirror.Scanner.WorkingSet.pas"/>
+        <DCCReference Include="..\..\src\Stats\NativeMirror.Stats.Analyzer.pas"/>
+        <DCCReference Include="..\..\src\Stats\NativeMirror.Stats.Core.pas"/>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>Library</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">pe-sieve.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Beispiele für gekapselte Komponenten für Automatisierungsserver</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Beispiele für gekapselte Komponenten für Automation Server</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">True</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Target Name="NativeMirrorDllBuildDate" BeforeTargets="BeforeCompile">
+        <PropertyGroup>
+            <NativeMirrorDllDate>$([System.DateTime]::Now.ToString(&apos;MMM&apos;, $([System.Globalization.CultureInfo]::GetCultureInfo(&apos;en-US&apos;)))) $([System.DateTime]::Now.Day.ToString().PadLeft(2)) $([System.DateTime]::Now.Year)</NativeMirrorDllDate>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(MSBuildProjectDirectory)\NativeMirror.Api.BuildDate.inc" Lines="'$(NativeMirrorDllDate)'" Overwrite="true" WriteOnlyWhenDifferent="true"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>py &quot;$(MSBuildProjectDirectory)\finalize_exports.py&quot; &quot;$(DCC_ExeOutput)\pe-sieve.dll&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>py &quot;$(MSBuildProjectDirectory)\finalize_exports.py&quot; &quot;$(DCC_ExeOutput)\pe-sieve.dll&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>py &quot;$(MSBuildProjectDirectory)\finalize_exports.py&quot; &quot;$(DCC_ExeOutput)\pe-sieve.dll&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>py &quot;$(MSBuildProjectDirectory)\finalize_exports.py&quot; &quot;$(DCC_ExeOutput)\pe-sieve.dll&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+</Project>

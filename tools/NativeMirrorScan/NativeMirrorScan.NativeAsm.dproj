@@ -1,0 +1,143 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{A3B8D045-FAE9-4531-AB8B-BBBE3A5276B3}</ProjectGuid>
+    <MainSource>NativeMirrorScan.dpr</MainSource>
+    <Base>True</Base>
+    <Config Condition="'$(Config)'==''">Debug</Config>
+    <Platform Condition="'$(Platform)'==''">Win64</Platform>
+    <ProjectName Condition="'$(ProjectName)'==''">NativeMirrorScanNativeAsm</ProjectName>
+    <TargetedPlatforms>2</TargetedPlatforms>
+    <AppType>Console</AppType>
+    <FrameworkType>None</FrameworkType>
+    <ProjectVersion>20.2</ProjectVersion>
+    <NativeMirrorRoot Condition="'$(NativeMirrorRoot)'==''">$(MSBuildProjectDirectory)\..\..</NativeMirrorRoot>
+    <NativePeRoot Condition="'$(NativePeRoot)'==''">$(NativeMirrorRoot)\..\NativePe</NativePeRoot>
+    <NativePeUnitPath Condition="'$(NativePeUnitPath)'==''">$(NativePeRoot);$(NativePeRoot)\Source;$(NativePeRoot)\src</NativePeUnitPath>
+    <NativeAsmRoot Condition="'$(NativeAsmRoot)'==''">$(NativeMirrorRoot)\..\NativeASM</NativeAsmRoot>
+    <NativeAsmUnitPath Condition="'$(NativeAsmUnitPath)'==''">$(NativeAsmRoot);$(NativeAsmRoot)\Source;$(NativeAsmRoot)\src</NativeAsmUnitPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+    <Base>true</Base>
+    <DCC_UnitSearchPath>$(NativeMirrorRoot)\src\Core;$(NativeMirrorRoot)\src\Adapters;$(NativeMirrorRoot)\src\Dumper;$(NativeMirrorRoot)\src\Dumper\Imports;$(NativeMirrorRoot)\src\Layer;$(NativeMirrorRoot)\src\Platform;$(NativeMirrorRoot)\src\Scanner;$(NativeMirrorRoot)\src\Stats;$(NativePeUnitPath);$(NativeAsmUnitPath);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+    <DCC_ExeOutput>$(MSBuildProjectDirectory)\..\..\bin\$(Platform)\$(Config)</DCC_ExeOutput>
+    <DCC_DcuOutput>$(MSBuildProjectDirectory)\..\..\dcu\$(ProjectName)\$(Platform)\$(Config)</DCC_DcuOutput>
+    <DCC_Define>USE_NATIVEASM;$(DCC_Define)</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+    <Base_Win64>true</Base_Win64>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+    <Cfg_1>true</Cfg_1>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+    <Cfg_2>true</Cfg_2>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+    <Cfg_1_Win64>true</Cfg_1_Win64>
+    <CfgParent>Cfg_1</CfgParent>
+    <Cfg_1>true</Cfg_1>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+    <Cfg_2_Win64>true</Cfg_2_Win64>
+    <CfgParent>Cfg_2</CfgParent>
+    <Cfg_2>true</Cfg_2>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1)'!=''">
+    <DCC_Define>DEBUG;USE_NATIVEASM;$(DCC_Define)</DCC_Define>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    <DCC_DebugInformation>2</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2)'!=''">
+    <DCC_Define>RELEASE;USE_NATIVEASM;$(DCC_Define)</DCC_Define>
+    <DCC_Optimize>true</DCC_Optimize>
+    <DCC_GenerateStackFrames>false</DCC_GenerateStackFrames>
+    <DCC_DebugInformation>0</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+    <BT_BuildType>Debug</BT_BuildType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+    <BT_BuildType>Release</BT_BuildType>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="$(MainSource)">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Adapters\NativeMirror.Adapters.Streams.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Buffer.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Engine.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Memory.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Options.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Paths.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.PeValidation.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Text.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Core\NativeMirror.Core.Types.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\Imports\NativeMirror.Dumper.Imports.Blocks.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\Imports\NativeMirror.Dumper.Imports.Finder.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\Imports\NativeMirror.Dumper.Imports.Reconstructor.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\NativeMirror.Dumper.Buffer.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\NativeMirror.Dumper.Engine.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\NativeMirror.Dumper.Reconstructor.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Dumper\NativeMirror.Dumper.Reports.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Layer\NativeMirror.Layer.Lde.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Layer\NativeMirror.Layer.NativeAsm.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Layer\NativeMirror.Layer.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Enumeration.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.MiniDump.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Paths.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Process.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Reflection.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Symbols.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Syscalls.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Platform\NativeMirror.Platform.Threads.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Artefacts.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Code.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Headers.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.HookTargets.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.IAT.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Mapping.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.MemPage.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.ModuleCache.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.ModuleData.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Modules.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.PatchAnalyzer.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Patches.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Patterns.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.PeSection.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.ProcessDetails.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.ProcessReport.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.ProcessScanner.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Reports.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Signatures.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.Threads.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Scanner\NativeMirror.Scanner.WorkingSet.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Stats\NativeMirror.Stats.Analyzer.pas"/>
+    <DCCReference Include="$(NativeMirrorRoot)\src\Stats\NativeMirror.Stats.Core.pas"/>
+    <BuildConfiguration Include="Base"><Key>Base</Key></BuildConfiguration>
+    <BuildConfiguration Include="Debug"><Key>Cfg_1</Key><CfgParent>Base</CfgParent></BuildConfiguration>
+    <BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration>
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+    <Borland.ProjectType>Console</Borland.ProjectType>
+    <BorlandProject>
+      <Delphi.Personality><Source><Source Name="MainSource">NativeMirrorScan.dpr</Source></Source></Delphi.Personality>
+      <Platforms><Platform value="Win32">False</Platform><Platform value="Win64">True</Platform></Platforms>
+    </BorlandProject>
+    <ProjectFileVersion>12</ProjectFileVersion>
+  </ProjectExtensions>
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+  <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>
