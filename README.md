@@ -4,6 +4,14 @@ NativeMirror is an independent Object Pascal implementation of PE-sieve function
 
 The implementation uses Delphi-native APIs and NativePe as its PE engine. It can be used directly as a Delphi library, through its CLI, or through a PE-sieve-compatible DLL interface. All three share the same scanner core. The compatibility target is the externally observable behavior of PE-sieve 0.4.1.5; full behavioral equivalence has not been established.
 
+## Reference versions and relocation behavior
+
+The binary comparisons use PE-sieve **0.4.1.1** (`pe-sieve64.exe` for the Delphi investigation; the HollowsHunter fixture separately uses the bundled 0.4.1.1 DLL). NativeMirror's source reference is **0.4.1.5**.
+
+The old 0.4.1.1 relocation code stops processing a block at a padding entry, causing false code-patch findings in the investigated Delphi modules. NativeMirror/NativePe already skip padding correctly, matching the newer 0.4.1.5 reference on this path. The upstream fix is in PE-sieve's libpeconv dependency: [commit `610a3e8f204341557dc956b7caa203e08df8d874`](https://github.com/hasherezade/libpeconv/commit/610a3e8f204341557dc956b7caa203e08df8d874).
+
+See [the relocation analysis](DELPHI_RELOCATION_ANALYSE.md) for versions, evidence and limits. This establishes the relocation difference, not full scanner or DLL parity with 0.4.1.5; a complete 0.4.1.5 scanner was not run in that investigation.
+
 ## Requirements
 
 - Windows and Delphi 12, with Win32 and Win64 compiler support.
