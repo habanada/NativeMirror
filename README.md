@@ -1,5 +1,9 @@
 # NativeMirror
 
+<p align="center">
+  <img src="pictures/NativeMirror.png" alt="NativeMirror mascot: an armored PE file looking into a mirror" width="480">
+</p>
+
 NativeMirror is an independent Object Pascal implementation of PE-sieve functionality, adapted from [PE-sieve by hasherezade](https://github.com/hasherezade/pe-sieve). It scans process memory, detects modified or injected code, and dumps PE files.
 
 The implementation uses Delphi-native APIs and NativePe as its PE engine. It can be used directly as a Delphi library, through its CLI, or through a PE-sieve-compatible DLL interface. All three share the same scanner core. The compatibility target is the externally observable behavior of PE-sieve 0.4.1.5; full behavioral equivalence has not been established.
